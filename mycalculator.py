@@ -1,10 +1,10 @@
 import streamlit as st
 import re
 
-# Set page config
-st.set_page_config(page_title="SAIF's Calculator", layout="centered")
+# Page Config
+st.set_page_config(page_title="Huzaifa's Calculator", layout="centered")
 
-# Inject custom CSS
+# Custom CSS
 st.markdown("""
     <style>
         .stApp {
@@ -34,7 +34,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("""
-    <h1 style="text-align: center; color: #333333;">Hello, I am Huzaifa <br>Welcome to my  Calculator</h1>
+    <h1 style="text-align: center; color: #333333;">Hello, I am Huzaifa <br>Welcome to my Calculator</h1>
 """, unsafe_allow_html=True)
 
 class Calculator:
@@ -60,7 +60,7 @@ class Calculator:
     def calculate(self, expression_input):
         try:
             expression_input = expression_input.replace('➕', '+').replace('➖', '-')\
-                                             .replace('✖', '*').replace('➗', '/')
+                                               .replace('✖', '*').replace('➗', '/')
             operators = ['+', '-', '*', '/', '%', '//']
             tokens = re.findall(r'\d+|[%s]' % re.escape(''.join(operators)), expression_input)
             if not tokens:
@@ -69,13 +69,12 @@ class Calculator:
             i = 1
             while i < len(tokens):
                 op = tokens[i]
-                num = int(tokens[i+1])
+                num = int(tokens[i + 1])
                 result = self.perform_operation(result, num, op)
                 i += 2
             return result
         except Exception as e:
             return f"Error: {e}"
-
 
 class CalculatorUI:
     def _init_(self, calculator):
@@ -121,6 +120,7 @@ class CalculatorUI:
         if st.session_state.result is not None:
             st.markdown(f"<div class='result-box'>Result: {st.session_state.result}</div>", unsafe_allow_html=True)
 
+# Run the calculator
 calculator = Calculator()
 ui = CalculatorUI(calculator)
 ui.display_calculator_buttons()
